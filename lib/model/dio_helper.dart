@@ -3,7 +3,6 @@ import 'constant.dart';
 
 class DioHelper {
   static Dio dio = Dio();
-
   static init() {
     dio = Dio(BaseOptions(baseUrl: baseUrl, headers: {
       "content-type": "application/json",
