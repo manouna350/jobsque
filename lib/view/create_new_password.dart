@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jobsque/view_model/routes/route_name.dart';
 import '../model/cubit/app_cubit.dart';
 import '../model/cubit/app_states.dart';
 import '../model/widgets.dart';
@@ -111,7 +112,12 @@ class _CreateNewPasswordState extends State<CreateNewPassword> {
                           defaultButton(
                               text: "Reset password",
                               onPressed: () {
-                                newPassForm.currentState!.validate();
+                                if (newPassForm.currentState!.validate()) {
+                                  Navigator.pushNamed(
+                                      context, AppRouter.passwordChangeSuccess);
+                                } else {
+                                  null;
+                                }
                               }),
                         ]),
                   ),

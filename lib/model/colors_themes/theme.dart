@@ -1,9 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'color_palette.dart';
 
-class Themes {
+class CustomThemes {
   static ThemeData lightTheme = ThemeData(
       colorScheme: const ColorScheme.light(
         primary: AppTheme.primaryColor,
@@ -16,8 +15,8 @@ class Themes {
       appBarTheme: const AppBarTheme(
         elevation: 0,
         backgroundColor: AppTheme.primaryColor,
-        // systemOverlayStyle:
-        //     SystemUiOverlayStyle(statusBarColor: AppTheme.primaryColor),
+        systemOverlayStyle:
+            SystemUiOverlayStyle(statusBarColor: AppTheme.primaryColor),
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           unselectedItemColor: AppTheme.sentence,

@@ -31,7 +31,8 @@ class _BuilderOnBoardingState extends State<BuilderOnBoarding> {
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, AppRouter.createAccount);
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, AppRouter.login, (route) => false);
                 },
                 child: const Text('Skip',
                     style: TextStyle(

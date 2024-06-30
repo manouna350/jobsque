@@ -9,14 +9,7 @@ class PasswordChangeSuccess extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.of(context, rootNavigator: true).pop(context);
-          },
-        ),
-      ),
+      appBar: AppBar(),
       body: Padding(
         padding: const EdgeInsets.only(left: 20, right: 20, top: 50),
         child: Column(

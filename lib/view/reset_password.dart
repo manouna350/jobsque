@@ -23,10 +23,12 @@ class _ResetPasswordState extends State<ResetPassword> {
         builder: (context, state) {
           return Scaffold(
               appBar: AppBar(
-                title: IconButton(
-                  icon: const Icon(Icons.arrow_back),
-                  onPressed: () {},
-                ),
+                // title: IconButton(
+                //   icon: const Icon(Icons.arrow_back),
+                //   onPressed: () {
+                //     Navigator.of(context, rootNavigator: true).pop(context);
+                //   },
+                // ),
                 actions: [
                   Padding(
                     padding: const EdgeInsets.only(right: 25),
@@ -85,7 +87,12 @@ class _ResetPasswordState extends State<ResetPassword> {
                           defaultButton(
                               text: "Request Password reset",
                               onPressed: () {
-                                resetForm.currentState!.validate();
+                                if (resetForm.currentState!.validate()) {
+                                  Navigator.pushNamed(
+                                      context, AppRouter.checkEmail);
+                                } else {
+                                  null;
+                                }
                               }),
                         ]),
                   ),

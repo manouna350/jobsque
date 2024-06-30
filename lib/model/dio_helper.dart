@@ -11,32 +11,37 @@ class DioHelper {
   }
 
   static getData({
-    required String url,
+    required String endPoint,
     Map<String, dynamic>? data,
     Map<String, dynamic>? query,
     String? token,
   }) async {
-    dio.options.headers = {"Authorization": "Bearer ${token ?? ''} "};
-    Response response = await dio.get(url, data: data, queryParameters: query);
+    dio.options.headers = {"Authorization": "Bearer $myToken "};
+    Response response =
+        await dio.get(endPoint, data: data, queryParameters: query);
     return response;
   }
 
   static postData({
     String? token,
-    required String url,
+    required String endPoint,
     required Map<String, dynamic> data,
     Map<String, dynamic>? query,
   }) async {
-    dio.options.headers = {"Authorization": "Bearer ${token ?? ''} "};
-    var response = await dio.post(url, data: data, queryParameters: query);
+    dio.options.headers = {"Authorization": "Bearer $myToken "};
+    var response = await dio.post(
+      endPoint,
+      data: data,
+      queryParameters: query,
+    );
     return response.data;
   }
-  //
-  // static deleteData({
-  //   required String url,
-  //   required Map<String, dynamic> data,
-  // }) async {
-  //   var response = await dio.delete(url, data: data);
-  //   return response.data;
-  // }
+
+  static deleteData({
+    required String endPoint,
+    required Map<String, dynamic> data,
+  }) async {
+    var response = await dio.delete(endPoint, data: data);
+    return response.data;
+  }
 }

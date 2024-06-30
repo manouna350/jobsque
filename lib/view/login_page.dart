@@ -4,7 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jobsque/model/colors_themes/color_palette.dart';
 import '../model/cubit/app_cubit.dart';
 import '../model/cubit/app_states.dart';
+import '../model/cubit/auth_cubit.dart';
+import '../model/shared/cache_helper.dart';
+import '../model/shared/enum.dart';
 import '../model/widgets.dart';
+import '../view_model/routes/route_name.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -29,6 +33,10 @@ class _LoginPageState extends State<LoginPage> {
             : const Icon(Icons.visibility_outlined));
   }
 
+  TextEditingController emailController =
+      TextEditingController(text: CacheHelper.getString(key: SharedKeys.email));
+  TextEditingController passwordController = TextEditingController(
+      text: CacheHelper.getString(key: SharedKeys.password));
   GlobalKey<FormState> logForm = GlobalKey();
 
   @override
@@ -37,15 +45,11 @@ class _LoginPageState extends State<LoginPage> {
       listener: (context, state) {},
       builder: (context, state) {
         AppCubit.get(context);
+        AuthCubit.get(context);
+
         return Scaffold(
             appBar: AppBar(
               automaticallyImplyLeading: false,
-              title: IconButton(
-                icon: const Icon(Icons.arrow_back),
-                onPressed: () {
-                  //Navigator.of(context, rootNavigator: true).pop(context);
-                },
-              ),
               actions: [
                 Padding(
                   padding: const EdgeInsets.only(right: 25),
@@ -79,7 +83,9 @@ class _LoginPageState extends State<LoginPage> {
                             hintText: "Name",
                             prefix: const Icon(Icons.person_outline),
                             validator: (name) => name!.length < 3
-                                ? "name should be more than 3 characters"
+                                // ||
+                                //     name.length > 15
+                                ? "name should be more than 3 characters and less than 15"
                                 : null),
                         const SizedBox(
                           height: 25,
@@ -117,8 +123,8 @@ class _LoginPageState extends State<LoginPage> {
                             textButton(
                                 text: "Forgot Password?",
                                 onPressed: () {
-                                  // Navigator.pushNamed(
-                                  //     context, AppRouter.resetPassword);
+                                  Navigator.pushNamed(
+                                      context, AppRouter.resetPassword);
                                 })
                           ],
                         ),
@@ -132,8 +138,8 @@ class _LoginPageState extends State<LoginPage> {
                             textButton(
                                 text: "Register",
                                 onPressed: () {
-                                  // Navigator.pushNamed(
-                                  //     context, AppRouter.createAccount);
+                                  Navigator.pushNamed(
+                                      context, AppRouter.createAccount);
                                 })
                           ],
                         ),
@@ -142,12 +148,25 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         defaultButton(
                             text: "Login",
-                            onPressed: () {
-                              logForm.currentState!.validate();
-                              context
-                                  .read<AppCubit>()
-                                  .logIn(); // Navigator.pushNamed(
-                              //     context, AppRouter.homeScreen);
+                            onPressed: () async {
+                              if (logForm.currentState!.validate()) {
+                                await AuthCubit.get(context).logIn(
+                                    email: emailController.text,
+                                    password: passwordController.text);
+                                Navigator.pushNamed(
+                                    context, AppRouter.homeScreen);
+                              } else if (isChecked == true) {
+                                CacheHelper.putString(
+                                  key: SharedKeys.email!,
+                                  value: emailController.text,
+                                );
+                                CacheHelper.putString(
+                                  key: SharedKeys.password!,
+                                  value: passwordController.text,
+                                );
+                              } else {
+                                null;
+                              }
                             }),
                         const SizedBox(
                           height: 15,

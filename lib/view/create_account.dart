@@ -40,7 +40,7 @@ class _CreateAccountState extends State<CreateAccount> {
                 title: IconButton(
                   icon: const Icon(Icons.arrow_back),
                   onPressed: () {
-                    Navigator.pop(context);
+                    Navigator.pushNamed(context, AppRouter.login);
                   },
                 ),
                 actions: [
@@ -128,7 +128,13 @@ class _CreateAccountState extends State<CreateAccount> {
                           defaultButton(
                               text: "Create account",
                               onPressed: () {
-                                createForm.currentState!.validate();
+                                if (createForm.currentState!.validate()) {
+                                  Navigator.pushNamed(
+                                      context, AppRouter.workType);
+                                } else {
+                                  null;
+                                }
+                                AppCubit.get(context).password.clear();
                               }),
                           const SizedBox(
                             height: 15,

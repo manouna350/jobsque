@@ -9,7 +9,7 @@ class GridItem extends StatefulWidget {
 }
 
 class _GridItemState extends State<GridItem> {
-  final List<Map<String, String>> gridMap = [
+  final List<Map<String, dynamic>> gridMap = [
     {"image": "assets/images/bezier.png", "title": "UI/UX Designer"},
     {"image": "assets/images/pen-tool-2.png", "title": "Illustrator Designer"},
     {"image": "assets/images/code.png", "title": "Developer"},

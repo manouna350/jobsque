@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jobsque/view_model/grid_item.dart';
+import 'package:jobsque/view_model/builder_items/grid_item.dart';
 import 'package:jobsque/view_model/routes/route_name.dart';
 import '../model/cubit/app_cubit.dart';
 import '../model/cubit/app_states.dart';
@@ -23,7 +23,26 @@ class WorkType extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    headline(text: "What type of work are you interested in?"),
+                    Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          IconButton(
+                              onPressed: () {
+                                Navigator.pushNamed(
+                                    context, AppRouter.createAccount);
+                              },
+                              icon: const Icon(
+                                Icons.arrow_back,
+                                color: Colors.black,
+                              )),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          headline(
+                              text:
+                                  "What type of work are you \ninterested in?")
+                        ]),
                     const SizedBox(height: 10),
                     normalText(
                         text:
