@@ -3,11 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jobsque/model/cubit/app_cubit.dart';
 import 'package:jobsque/model/cubit/app_states.dart';
 
+import '../../../../model/shared/cache_helper.dart';
+import '../../../../model/shared/enum.dart';
 import '../../../../model/widgets.dart';
 import '../../../../view_model/routes/route_name.dart';
 
 class ChangePasswordSecurity extends StatefulWidget {
-  ChangePasswordSecurity({super.key});
+  const ChangePasswordSecurity({super.key});
 
   @override
   State<ChangePasswordSecurity> createState() => _ChangePasswordSecurityState();
@@ -85,6 +87,9 @@ class _ChangePasswordSecurityState extends State<ChangePasswordSecurity> {
                       children: [
                         headline3(text: "Enter old password"),
                         textField(
+                            onChanged: (pass) {
+                              AppCubit.get(context).password.text = pass;
+                            },
                             validator: (pass) {
                               if (pass!.isEmpty || pass.length < 3) {
                                 return "Please enter a valid password";
@@ -100,6 +105,9 @@ class _ChangePasswordSecurityState extends State<ChangePasswordSecurity> {
                         const SizedBox(height: 15),
                         headline3(text: "Enter new password"),
                         textField(
+                            onChanged: (newPass) {
+                              AppCubit.get(context).password2.text = newPass;
+                            },
                             validator: (pass) {
                               if (pass!.isEmpty || pass.length < 3) {
                                 return "Please enter a valid password";
@@ -115,6 +123,9 @@ class _ChangePasswordSecurityState extends State<ChangePasswordSecurity> {
                         const SizedBox(height: 15),
                         headline3(text: "confirm new password"),
                         textField(
+                            onChanged: (pass3) {
+                              AppCubit.get(context).password3.text = pass3;
+                            },
                             validator: (pass1) {
                               if (pass1!.isEmpty || pass1.length < 3) {
                                 return "Please enter a valid password";
@@ -137,6 +148,10 @@ class _ChangePasswordSecurityState extends State<ChangePasswordSecurity> {
                             onPressed: () {
                               if (changePasswordSecurityForm.currentState!
                                   .validate()) {
+                                CacheHelper.putString(
+                                  key: SharedKeys.password!,
+                                  value: AppCubit.get(context).password.text,
+                                );
                                 Navigator.pushNamed(
                                     context, AppRouter.loginAndSecurity);
                               } else {

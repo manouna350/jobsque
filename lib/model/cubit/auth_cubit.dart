@@ -1,8 +1,8 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jobsque/model/constant.dart';
 import 'package:jobsque/model/cubit/json_models/login.dart';
-import '../dio_helper.dart';
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
@@ -14,13 +14,14 @@ class AuthCubit extends Cubit<AuthState> {
   Future<Login?> logIn(
       {required String email, required String password}) async {
     emit(SignInLoading());
-    final response = await DioHelper.postData(
-      endPoint: loginEndPoint,
-      data: {
-        "email": email,
-        "password": password,
-      },
-    )
+    final data = {'email': email, 'password': password};
+    final formData = FormData.fromMap(data);
+    var dio = Dio();
+    var response = await dio
+        .post(
+          "$baseUrl$loginEndPoint",
+          data: formData,
+        )
         .then((value) =>
             {userLogin = Login.fromJson(value.data), emit(SignInSuccess())})
         .catchError(

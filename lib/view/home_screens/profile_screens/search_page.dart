@@ -43,8 +43,7 @@ class _SearchPageState extends State<SearchPage> {
                     children: [
                       IconButton(
                           onPressed: () {
-                            Navigator.of(context, rootNavigator: true)
-                                .pop(context);
+                            Navigator.pushNamed(context, AppRouter.homeScreen);
                           },
                           icon: const Icon(
                             Icons.arrow_back,
@@ -135,6 +134,11 @@ class _SearchPageState extends State<SearchPage> {
                                                   height: 5,
                                                 ),
                                                 textField(
+                                                    onChanged: (String title) {
+                                                      AppCubit.get(context)
+                                                          .title
+                                                          .text = title;
+                                                    },
                                                     controller:
                                                         AppCubit.get(context)
                                                             .title,
@@ -150,6 +154,12 @@ class _SearchPageState extends State<SearchPage> {
                                                   height: 5,
                                                 ),
                                                 textField(
+                                                    onChanged:
+                                                        (String location) {
+                                                      AppCubit.get(context)
+                                                          .address
+                                                          .text = location;
+                                                    },
                                                     controller:
                                                         AppCubit.get(context)
                                                             .address,

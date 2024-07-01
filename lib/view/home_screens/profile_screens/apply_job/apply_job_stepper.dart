@@ -52,6 +52,9 @@ class _ApplyJobStepperState extends State<ApplyJobStepper> {
                     ],
                   ),
                   textField(
+                      onChanged: (String name) {
+                        AppCubit.get(context).name.text = name;
+                      },
                       validator: (name) => name!.length < 3 || name.length > 15
                           ? "name should be more than 3 characters and less than 15"
                           : null,
@@ -70,6 +73,9 @@ class _ApplyJobStepperState extends State<ApplyJobStepper> {
                     ],
                   ),
                   textField(
+                      onChanged: (String email) {
+                        AppCubit.get(context).email.text = email;
+                      },
                       validator: (email) {
                         if (email!.isEmpty || email.length < 3) {
                           return "Please enter a valid email";

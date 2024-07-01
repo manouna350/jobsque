@@ -21,7 +21,7 @@ class CompleteProfile extends StatelessWidget {
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back),
                 onPressed: () {
-                  Navigator.of(context, rootNavigator: true).pop(context);
+                  Navigator.pushNamed(context, AppRouter.homeScreen);
                 },
               ),
               centerTitle: true,

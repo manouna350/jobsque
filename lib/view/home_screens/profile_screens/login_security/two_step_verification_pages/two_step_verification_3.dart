@@ -74,6 +74,9 @@ class _TwoStepVerification3State extends State<TwoStepVerification3> {
                       headline2(text: "Enter your password"),
                       const SizedBox(height: 10),
                       textField(
+                          onChanged: (pass) {
+                            AppCubit.get(context).password.text = pass;
+                          },
                           controller: AppCubit.get(context).password,
                           hintText: "Password",
                           prefix: const Icon(Icons.lock_outline),

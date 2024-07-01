@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jobsque/model/cubit/app_cubit.dart';
 import 'package:jobsque/model/cubit/app_states.dart';
+import '../../../model/shared/cache_helper.dart';
+import '../../../model/shared/enum.dart';
 import '../../../model/widgets.dart';
 import '../../../view_model/routes/route_name.dart';
 
@@ -90,13 +92,30 @@ class _EditProfileState extends State<EditProfile> {
                             const SizedBox(height: 10),
                             normalText(text: "Phone"),
                             textFieldEmpty(
-                                controller: AppCubit.get(context).name,
+                                controller: AppCubit.get(context).number,
                                 hintText: "Phone",
                                 obscureText: false),
                             const SizedBox(height: 30),
                             defaultButton(
                                 text: "Save",
                                 onPressed: () {
+                                  CacheHelper.putString(
+                                    key: SharedKeys.name!,
+                                    value: AppCubit.get(context).name.text,
+                                  );
+                                  CacheHelper.putString(
+                                    key: SharedKeys.address!,
+                                    value: AppCubit.get(context).address.text,
+                                  );
+                                  CacheHelper.putString(
+                                    key: SharedKeys.phone!,
+                                    value: AppCubit.get(context).number.text,
+                                  );
+                                  CacheHelper.putString(
+                                    key: SharedKeys.bio!,
+                                    value: AppCubit.get(context).bio.text,
+                                  );
+
                                   Navigator.pushNamed(
                                       context, AppRouter.homeScreen);
                                 })

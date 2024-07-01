@@ -6,17 +6,17 @@ import 'package:jobsque/view/home_screens/profile_screens/apply_job/job_detail.d
 import '../../model/cubit/app_cubit.dart';
 import '../routes/route_name.dart';
 
-listItem({required List list}) {
-  return ListView.separated(
-      separatorBuilder: (context, index) => const SizedBox(
-            height: 10,
-          ),
-      shrinkWrap: true,
-      itemCount: list.length,
-      itemBuilder: (context, index) => BuilderItem(
-            jobItem: list[index],
-          ));
-}
+// listItem({required List list}) {
+//   return ListView.separated(
+//       separatorBuilder: (context, index) => const SizedBox(
+//             height: 10,
+//           ),
+//       shrinkWrap: true,
+//       itemCount: list.length,
+//       itemBuilder: (context, index) => BuilderItem(
+//             jobItem: list[index],
+//           ));
+// }
 
 class BuilderItem extends StatelessWidget {
   final Data jobItem;

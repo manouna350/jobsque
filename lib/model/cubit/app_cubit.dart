@@ -68,7 +68,9 @@ class AppCubit extends Cubit<AppStates> {
   Future<void> getJob() async {
     jobList.clear();
     emit(GetJobLoading());
-    await DioHelper.getData(endPoint: allJobs, token: myToken)
+    await DioHelper.getData(
+            endPoint: allJobs,
+            token: "11484|Xxo5VPB793heudRbtsYk7V2bmFo2qZaH9qf8jXCj")
         .then((value) => {
               print(value.data),
               allJobsList = Jobs.fromJson(value.data),

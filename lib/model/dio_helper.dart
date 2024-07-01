@@ -16,7 +16,7 @@ class DioHelper {
     Map<String, dynamic>? query,
     String? token,
   }) async {
-    dio.options.headers = {"Authorization": "Bearer $myToken "};
+    dio.options.headers = {"Authorization": "Bearer ${token ?? ""} "};
     Response response =
         await dio.get(endPoint, data: data, queryParameters: query);
     return response;
@@ -25,10 +25,10 @@ class DioHelper {
   static postData({
     String? token,
     required String endPoint,
-    required Map<String, dynamic> data,
+    required dynamic data,
     Map<String, dynamic>? query,
   }) async {
-    dio.options.headers = {"Authorization": "Bearer $myToken "};
+    dio.options.headers = {"Authorization": "Bearer $token "};
     var response = await dio.post(
       endPoint,
       data: data,

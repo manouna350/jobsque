@@ -15,7 +15,7 @@ class Language extends StatefulWidget {
 }
 
 class _LanguageState extends State<Language> {
-  int selectedValue = -1;
+  int selectedValue = 2;
   final List<Map<String, dynamic>> flag = [
     {"id": 0, "flag": "US", "country name": "English"},
     {"id": 1, "flag": "EG", "country name": "Arabic"},
@@ -57,37 +57,34 @@ class _LanguageState extends State<Language> {
                           color: Colors.grey.withOpacity(0.3),
                         ),
                     itemCount: flag.length,
-                    itemBuilder: (context, index) => Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.values[3],
-                            children: [
-                              CountryFlag.fromCountryCode(
-                                "${flag.elementAt(index)["flag"]}",
-                                width: 40,
-                                height: 25,
-                                shape: const RoundedRectangle(5),
-                              ),
-                              headline2(
-                                  text:
-                                      "${flag.elementAt(index)["country name"]}"),
-                              const SizedBox(
-                                width: 150,
-                              ),
-                              RadioListTile(
-                                  value: 0,
-                                  controlAffinity:
-                                      ListTileControlAffinity.trailing,
-                                  activeColor: AppTheme.buttonColor,
-                                  groupValue: selectedValue,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      selectedValue = value!;
-                                    });
-                                  })
-                            ],
-                          ),
-                        )),
+                    itemBuilder: (context, index) => RadioListTile(
+                        title: Row(
+                          mainAxisAlignment: MainAxisAlignment.values[3],
+                          children: [
+                            CountryFlag.fromCountryCode(
+                              "${flag.elementAt(index)["flag"]}",
+                              width: 40,
+                              height: 25,
+                              shape: const RoundedRectangle(5),
+                            ),
+                            headline2(
+                                text:
+                                    "${flag.elementAt(index)["country name"]}"),
+                            const SizedBox(
+                              width: 150,
+                            ),
+                          ],
+                        ),
+                        selected: false,
+                        value: index,
+                        controlAffinity: ListTileControlAffinity.trailing,
+                        activeColor: AppTheme.buttonColor,
+                        groupValue: selectedValue,
+                        onChanged: (value) {
+                          setState(() {
+                            selectedValue = value!;
+                          });
+                        })),
               ));
         });
   }

@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jobsque/view_model/routes/route_name.dart';
 import '../model/cubit/app_cubit.dart';
 import '../model/cubit/app_states.dart';
+import '../model/shared/cache_helper.dart';
+import '../model/shared/enum.dart';
 import '../model/widgets.dart';
 
 class CreateNewPassword extends StatefulWidget {
@@ -48,12 +50,6 @@ class _CreateNewPasswordState extends State<CreateNewPassword> {
         builder: (context, state) {
           return Scaffold(
               appBar: AppBar(
-                title: IconButton(
-                  icon: const Icon(Icons.arrow_back),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
                 actions: [
                   Padding(
                     padding: const EdgeInsets.only(right: 25),
@@ -84,6 +80,10 @@ class _CreateNewPasswordState extends State<CreateNewPassword> {
                             height: 30,
                           ),
                           textField(
+                              onChanged: (String oldPassword) {
+                                AppCubit.get(context).password.text =
+                                    oldPassword;
+                              },
                               obscureText: hide,
                               controller: AppCubit.get(context).password,
                               hintText: "Old Password",
@@ -97,6 +97,10 @@ class _CreateNewPasswordState extends State<CreateNewPassword> {
                             height: 20,
                           ),
                           textField(
+                              onChanged: (String newPassword) {
+                                AppCubit.get(context).password2.text =
+                                    newPassword;
+                              },
                               obscureText: hide2,
                               controller: AppCubit.get(context).password2,
                               hintText: "New Password",
@@ -113,6 +117,10 @@ class _CreateNewPasswordState extends State<CreateNewPassword> {
                               text: "Reset password",
                               onPressed: () {
                                 if (newPassForm.currentState!.validate()) {
+                                  CacheHelper.putString(
+                                    key: SharedKeys.password!,
+                                    value: AppCubit.get(context).password.text,
+                                  );
                                   Navigator.pushNamed(
                                       context, AppRouter.passwordChangeSuccess);
                                 } else {

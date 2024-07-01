@@ -3,8 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jobsque/model/cubit/app_cubit.dart';
 import 'package:jobsque/model/cubit/app_states.dart';
 
-import '../model/cubit/auth_cubit.dart';
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -16,11 +14,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppStates>(
-      listener: (context, state) {
-        if (state is SignInLoading) {
-          const CircularProgressIndicator();
-        }
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
           body: AppCubit.screens[AppCubit.get(context).currentIndex],

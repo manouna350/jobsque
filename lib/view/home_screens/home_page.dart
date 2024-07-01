@@ -13,177 +13,178 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AppCubit, AppStates>(listener: (context, state) {
-      if (state is GetJobLoading) {
-        const CircularProgressIndicator();
-      }
-    }, builder: (context, state) {
-      return Scaffold(
-          body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 20, bottom: 10, right: 10, top: 30),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.start,
+    return BlocConsumer<AppCubit, AppStates>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          return Scaffold(
+              body: SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                      left: 20, bottom: 10, right: 10, top: 30),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Row(
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              headline(
-                                  text:
-                                      "Hi,  ${AppCubit.get(context).name.text}"),
-                              const AnimatedEmoji(
-                                AnimatedEmojis.wave,
-                                size: 30,
+                              Row(
+                                children: [
+                                  headline(
+                                      text:
+                                          "Hi,  ${AppCubit.get(context).name.text}"),
+                                  const AnimatedEmoji(
+                                    AnimatedEmojis.wave,
+                                    size: 30,
+                                  ),
+                                ],
                               ),
+                              normalText(
+                                  text:
+                                      "Create a better future for yourself here")
                             ],
                           ),
-                          normalText(
-                              text: "Create a better future for yourself here")
+                          const SizedBox(
+                            width: 45,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                border:
+                                    Border.all(color: AppTheme.borderColor)),
+                            child: IconButton(
+                                onPressed: () {
+                                  Navigator.pushNamed(
+                                      context, AppRouter.notification);
+                                },
+                                icon: const Icon(
+                                  Icons.notifications_none,
+                                  size: 25,
+                                  color: Colors.black,
+                                )),
+                          )
                         ],
                       ),
-                      const SizedBox(
-                        width: 45,
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(context, AppRouter.search);
+                          },
+                          child: Container(
+                            height: 50,
+                            width: double.maxFinite,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(25),
+                                border:
+                                    Border.all(color: AppTheme.borderColor)),
+                            child: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Row(
+                                children: [
+                                  const Icon(
+                                    Icons.search,
+                                    color: Colors.grey,
+                                  ),
+                                  normalText(text: "Type something....")
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            border: Border.all(color: AppTheme.borderColor)),
-                        child: IconButton(
-                            onPressed: () {
-                              Navigator.pushNamed(
-                                  context, AppRouter.notification);
-                            },
-                            icon: const Icon(
-                              Icons.notifications_none,
-                              size: 25,
-                              color: Colors.black,
-                            )),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          headline2(text: "Suggested job"),
+                          const SizedBox(
+                            width: 170,
+                          ),
+                          textButton(
+                              text: "view all",
+                              onPressed: () {
+                                Navigator.pushNamed(context, AppRouter.search);
+                              })
+                        ],
                       )
                     ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.pushNamed(context, AppRouter.search);
-                      },
-                      child: Container(
-                        height: 50,
-                        width: double.maxFinite,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(25),
-                            border: Border.all(color: AppTheme.borderColor)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Row(
-                            children: [
-                              const Icon(
-                                Icons.search,
-                                color: Colors.grey,
-                              ),
-                              normalText(text: "Type something....")
-                            ],
+                ),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 20, right: 20),
+                    child: Row(
+                      children: [
+                        Container(
+                          height: 200,
+                          width: 300,
+                          decoration: BoxDecoration(
+                            color: const Color(0xff091A7A),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [],
+                                )
+                              ],
+                            ),
                           ),
                         ),
-                      ),
+                        const SizedBox(width: 20),
+                        Container(
+                            height: 200,
+                            width: 300,
+                            decoration: BoxDecoration(
+                              color: Colors.teal,
+                              borderRadius: BorderRadius.circular(20),
+                            )),
+                      ],
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      headline2(text: "Suggested job"),
-                      const SizedBox(
-                        width: 170,
-                      ),
-                      textButton(
-                          text: "view all",
-                          onPressed: () {
-                            Navigator.pushNamed(context, AppRouter.search);
-                          })
-                    ],
-                  )
-                ],
-              ),
-            ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20),
-                child: Row(
-                  children: [
-                    Container(
-                      height: 200,
-                      width: 300,
-                      decoration: BoxDecoration(
-                        color: const Color(0xff091A7A),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [],
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 20),
-                    Container(
-                        height: 200,
-                        width: 300,
-                        decoration: BoxDecoration(
-                          color: Colors.teal,
-                          borderRadius: BorderRadius.circular(20),
-                        )),
-                  ],
                 ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20, right: 10),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                Padding(
+                  padding: const EdgeInsets.only(left: 20, right: 10),
+                  child: Column(
                     children: [
-                      headline2(text: "Recent job"),
-                      const SizedBox(
-                        width: 195,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          headline2(text: "Recent job"),
+                          const SizedBox(
+                            width: 195,
+                          ),
+                          textButton(
+                              text: "view all",
+                              onPressed: () {
+                                Navigator.pushNamed(context, AppRouter.search);
+                              })
+                        ],
                       ),
-                      textButton(
-                          text: "view all",
-                          onPressed: () {
-                            Navigator.pushNamed(context, AppRouter.search);
-                          })
+                      ListView.separated(
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) =>
+                              homelistItem(list: AppCubit.get(context).jobList),
+                          separatorBuilder: (context, index) =>
+                              const Divider(height: 1),
+                          itemCount: AppCubit.get(context).jobList.length)
                     ],
                   ),
-                  ListView.separated(
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) =>
-                          homelistItem(list: AppCubit.get(context).jobList),
-                      separatorBuilder: (context, index) =>
-                          const Divider(height: 1),
-                      itemCount: AppCubit.get(context).jobList.length)
-                ],
-              ),
-            )
-          ],
-        ),
-      ));
-    });
+                )
+              ],
+            ),
+          ));
+        });
   }
 
   homelistItem({required List list}) {

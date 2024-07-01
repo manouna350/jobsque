@@ -5,6 +5,8 @@ import 'package:jobsque/model/colors_themes/color_palette.dart';
 
 import '../../../model/cubit/app_cubit.dart';
 import '../../../model/cubit/app_states.dart';
+import '../../../model/shared/cache_helper.dart';
+import '../../../model/shared/enum.dart';
 import '../../../model/widgets.dart';
 import '../../../view_model/routes/route_name.dart';
 
@@ -148,6 +150,18 @@ class _EducationState extends State<Education> {
                                       if (eduForm.currentState!.validate()) {
                                         Navigator.pushNamed(
                                             context, AppRouter.completeProfile);
+                                        CacheHelper.putString(
+                                          key: SharedKeys.university!,
+                                          value: AppCubit.get(context)
+                                              .university
+                                              .text,
+                                        );
+                                        CacheHelper.putString(
+                                          key: SharedKeys.title!,
+                                          value:
+                                              AppCubit.get(context).title.text,
+                                        );
+
                                         setState(() {
                                           isComplete = true;
                                         });

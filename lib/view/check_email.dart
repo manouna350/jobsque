@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jobsque/view_model/routes/route_name.dart';
 import '../model/widgets.dart';
 
 class CheckEmail extends StatelessWidget {
@@ -30,7 +31,11 @@ class CheckEmail extends StatelessWidget {
             const SizedBox(
               height: 200,
             ),
-            defaultButton(text: "Open email app", onPressed: () {}),
+            defaultButton(
+                text: "Open email app",
+                onPressed: () {
+                  Navigator.pushNamed(context, AppRouter.createNewPassword);
+                }),
           ],
         ),
       ),

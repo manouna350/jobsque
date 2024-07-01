@@ -75,6 +75,9 @@ class _CreateAccountState extends State<CreateAccount> {
                           textField(
                               obscureText: false,
                               controller: AppCubit.get(context).name,
+                              onChanged: (String name) {
+                                AppCubit.get(context).name.text = name;
+                              },
                               hintText: "Name",
                               prefix: const Icon(Icons.person_outline),
                               validator: (name) => name!.length < 3
@@ -84,6 +87,9 @@ class _CreateAccountState extends State<CreateAccount> {
                             height: 25,
                           ),
                           textField(
+                              onChanged: (String email) {
+                                AppCubit.get(context).email.text = email;
+                              },
                               obscureText: false,
                               controller: AppCubit.get(context).email,
                               hintText: "Email",
@@ -99,6 +105,9 @@ class _CreateAccountState extends State<CreateAccount> {
                             height: 25,
                           ),
                           textField(
+                              onChanged: (String password) {
+                                AppCubit.get(context).password.text = password;
+                              },
                               obscureText: hide,
                               controller: AppCubit.get(context).password,
                               hintText: "Password",

@@ -4,6 +4,8 @@ import 'package:intl/intl.dart';
 import '../../../model/colors_themes/color_palette.dart';
 import '../../../model/cubit/app_cubit.dart';
 import '../../../model/cubit/app_states.dart';
+import '../../../model/shared/cache_helper.dart';
+import '../../../model/shared/enum.dart';
 import '../../../model/widgets.dart';
 import '../../../view_model/routes/route_name.dart';
 
@@ -185,6 +187,19 @@ class _ExperienceState extends State<Experience> {
                                       if (expForm.currentState!.validate()) {
                                         Navigator.pushNamed(
                                             context, AppRouter.completeProfile);
+                                        CacheHelper.putString(
+                                          key: SharedKeys.position!,
+                                          value: AppCubit.get(context)
+                                              .position
+                                              .text,
+                                        );
+                                        CacheHelper.putString(
+                                          key: SharedKeys.companyName!,
+                                          value: AppCubit.get(context)
+                                              .companyName
+                                              .text,
+                                        );
+
                                         setState(() {
                                           isComplete = true;
                                         });

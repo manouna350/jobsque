@@ -120,6 +120,7 @@ Widget textField({
   required Icon prefix,
   required bool obscureText,
   String? Function(String?)? validator,
+  void Function(String)? onChanged,
 }) =>
     TextFormField(
       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -127,6 +128,7 @@ Widget textField({
       obscureText: obscureText,
       controller: controller,
       keyboardType: type,
+      onChanged: onChanged!,
       decoration: InputDecoration(
           floatingLabelBehavior: FloatingLabelBehavior.always,
           hintText: hintText,

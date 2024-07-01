@@ -23,12 +23,6 @@ class _ResetPasswordState extends State<ResetPassword> {
         builder: (context, state) {
           return Scaffold(
               appBar: AppBar(
-                // title: IconButton(
-                //   icon: const Icon(Icons.arrow_back),
-                //   onPressed: () {
-                //     Navigator.of(context, rootNavigator: true).pop(context);
-                //   },
-                // ),
                 actions: [
                   Padding(
                     padding: const EdgeInsets.only(right: 25),
@@ -59,6 +53,9 @@ class _ResetPasswordState extends State<ResetPassword> {
                             height: 30,
                           ),
                           textField(
+                              onChanged: (String email) {
+                                AppCubit.get(context).email.text = email;
+                              },
                               obscureText: false,
                               controller: AppCubit.get(context).email,
                               hintText: "Email",

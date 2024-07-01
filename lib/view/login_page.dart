@@ -78,8 +78,11 @@ class _LoginPageState extends State<LoginPage> {
                           height: 30,
                         ),
                         textField(
+                            onChanged: (String email) {
+                              emailController.text = email;
+                            },
                             obscureText: false,
-                            controller: AppCubit.get(context).name,
+                            controller: emailController,
                             hintText: "Name",
                             prefix: const Icon(Icons.person_outline),
                             validator: (name) => name!.length < 3
@@ -91,8 +94,11 @@ class _LoginPageState extends State<LoginPage> {
                           height: 25,
                         ),
                         textField(
+                            onChanged: (String password) {
+                              passwordController.text = password;
+                            },
                             obscureText: hide,
-                            controller: AppCubit.get(context).password,
+                            controller: passwordController,
                             hintText: "Password",
                             prefix: const Icon(Icons.lock_outline),
                             suffix: togglePassword(),
@@ -146,28 +152,42 @@ class _LoginPageState extends State<LoginPage> {
                         const SizedBox(
                           height: 15,
                         ),
-                        defaultButton(
-                            text: "Login",
-                            onPressed: () async {
-                              if (logForm.currentState!.validate()) {
-                                await AuthCubit.get(context).logIn(
-                                    email: emailController.text,
-                                    password: passwordController.text);
-                                Navigator.pushNamed(
-                                    context, AppRouter.homeScreen);
-                              } else if (isChecked == true) {
-                                CacheHelper.putString(
-                                  key: SharedKeys.email!,
-                                  value: emailController.text,
-                                );
-                                CacheHelper.putString(
-                                  key: SharedKeys.password!,
-                                  value: passwordController.text,
-                                );
-                              } else {
-                                null;
-                              }
-                            }),
+                        BlocBuilder<AuthCubit, AuthState>(
+                          builder: (context, state) {
+                            return defaultButton(
+                                text: "Login",
+                                onPressed: () async {
+                                  if (logForm.currentState!.validate()) {
+                                    await AuthCubit.get(context).logIn(
+                                        email: emailController.text,
+                                        password: passwordController.text);
+                                    print(emailController.text);
+                                    print(passwordController.text);
+                                    if (state is SignInSuccess) {
+                                      CacheHelper.putString(
+                                        key: SharedKeys.email!,
+                                        value: emailController.text,
+                                      );
+                                      CacheHelper.putString(
+                                        key: SharedKeys.token,
+                                        value: AuthCubit.get(context)
+                                            .userLogin
+                                            .token!,
+                                      );
+                                      CacheHelper.putString(
+                                        key: SharedKeys.password!,
+                                        value: passwordController.text,
+                                      );
+                                      Navigator.pushNamed(
+                                          context, AppRouter.homeScreen);
+                                      AppCubit.get(context).getJob();
+                                    }
+                                  } else if (state is SignInLoading) {
+                                    print("loading");
+                                  }
+                                });
+                          },
+                        ),
                         const SizedBox(
                           height: 15,
                         ),

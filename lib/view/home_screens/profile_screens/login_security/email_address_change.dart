@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jobsque/model/cubit/app_cubit.dart';
 import 'package:jobsque/model/cubit/app_states.dart';
 
+import '../../../../model/shared/cache_helper.dart';
+import '../../../../model/shared/enum.dart';
 import '../../../../model/widgets.dart';
 import '../../../../view_model/routes/route_name.dart';
 
@@ -42,6 +44,9 @@ class EmailAddressChange extends StatelessWidget {
                           height: 15,
                         ),
                         textField(
+                            onChanged: (String email) {
+                              AppCubit.get(context).email.text = email;
+                            },
                             validator: (email) {
                               if (email!.isEmpty || email.length < 3) {
                                 return "Please enter a valid email";
@@ -58,6 +63,10 @@ class EmailAddressChange extends StatelessWidget {
                             text: "Save",
                             onPressed: () {
                               if (editEmailForm.currentState!.validate()) {
+                                CacheHelper.putString(
+                                  key: SharedKeys.email!,
+                                  value: AppCubit.get(context).email.text,
+                                );
                                 Navigator.pushNamed(
                                     context, AppRouter.loginAndSecurity);
                               } else {
