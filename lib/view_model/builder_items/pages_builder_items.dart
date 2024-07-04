@@ -575,22 +575,12 @@ class ActiveAppliedBuilderItem extends StatelessWidget {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      InkWell(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => AppliedJob(
-                                    companyName: "${jobItem.compName}",
-                                    position: "${jobItem.name}",
-                                    picture: "${jobItem.image}",
-                                  )));
-                        },
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            headline2(text: "${jobItem.name}"),
-                            normalText(text: "${jobItem.compName}"),
-                          ],
-                        ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          headline2(text: "${jobItem.name}"),
+                          normalText(text: "${jobItem.compName}"),
+                        ],
                       ),
                       const SizedBox(width: 50),
                       IconButton(

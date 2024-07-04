@@ -56,6 +56,9 @@ class _AppliedJobState extends State<AppliedJob> {
                     ],
                   ),
                   textField(
+                      onChanged: (name) {
+                        AppCubit.get(context).name.text = name;
+                      },
                       validator: (name) => name!.length < 3 || name.length > 15
                           ? "name should be more than 3 characters and less than 15"
                           : null,
@@ -74,6 +77,9 @@ class _AppliedJobState extends State<AppliedJob> {
                     ],
                   ),
                   textField(
+                      onChanged: (email) {
+                        AppCubit.get(context).email.text = email;
+                      },
                       validator: (email) {
                         if (email!.isEmpty || email.length < 3) {
                           return "Please enter a valid email";
