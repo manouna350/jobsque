@@ -74,24 +74,36 @@ class _EditProfileState extends State<EditProfile> {
                           children: [
                             normalText(text: "Name"),
                             textFieldEmpty(
+                                onChanged: (name) {
+                                  AppCubit.get(context).name.text = name;
+                                },
                                 controller: AppCubit.get(context).name,
                                 hintText: "Name",
                                 obscureText: false),
                             const SizedBox(height: 10),
                             normalText(text: "Bio"),
                             textFieldEmpty(
+                                onChanged: (bio) {
+                                  AppCubit.get(context).bio.text = bio;
+                                },
                                 controller: AppCubit.get(context).bio,
                                 hintText: "Bio",
                                 obscureText: false),
                             const SizedBox(height: 10),
                             normalText(text: "Address"),
                             textFieldEmpty(
+                                onChanged: (address) {
+                                  AppCubit.get(context).address.text = address;
+                                },
                                 controller: AppCubit.get(context).address,
                                 hintText: "Address",
                                 obscureText: false),
                             const SizedBox(height: 10),
                             normalText(text: "Phone"),
                             textFieldEmpty(
+                                onChanged: (numb) {
+                                  AppCubit.get(context).number.text = numb;
+                                },
                                 controller: AppCubit.get(context).number,
                                 hintText: "Phone",
                                 obscureText: false),
@@ -100,19 +112,19 @@ class _EditProfileState extends State<EditProfile> {
                                 text: "Save",
                                 onPressed: () {
                                   CacheHelper.putString(
-                                    key: SharedKeys.name!,
+                                    key: SharedKeys.name,
                                     value: AppCubit.get(context).name.text,
                                   );
                                   CacheHelper.putString(
-                                    key: SharedKeys.address!,
+                                    key: SharedKeys.address,
                                     value: AppCubit.get(context).address.text,
                                   );
                                   CacheHelper.putString(
-                                    key: SharedKeys.phone!,
+                                    key: SharedKeys.phone,
                                     value: AppCubit.get(context).number.text,
                                   );
                                   CacheHelper.putString(
-                                    key: SharedKeys.bio!,
+                                    key: SharedKeys.bio,
                                     value: AppCubit.get(context).bio.text,
                                   );
 

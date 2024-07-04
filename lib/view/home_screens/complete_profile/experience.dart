@@ -65,6 +65,10 @@ class _ExperienceState extends State<Experience> {
                                   padding: const EdgeInsets.only(
                                       left: 20, right: 20, bottom: 10, top: 10),
                                   child: textFieldEmpty(
+                                    onChanged: (position) {
+                                      AppCubit.get(context).position.text =
+                                          position;
+                                    },
                                     controller: AppCubit.get(context).position,
                                     hintText: "",
                                     obscureText: false,
@@ -111,6 +115,10 @@ class _ExperienceState extends State<Experience> {
                                   padding: const EdgeInsets.only(
                                       left: 20, right: 20, bottom: 10, top: 10),
                                   child: textFieldEmpty(
+                                    onChanged: (company) {
+                                      AppCubit.get(context).companyName.text =
+                                          company;
+                                    },
                                     controller:
                                         AppCubit.get(context).companyName,
                                     hintText: "",
@@ -126,6 +134,10 @@ class _ExperienceState extends State<Experience> {
                                   padding: const EdgeInsets.only(
                                       left: 20, right: 20, top: 10),
                                   child: textFieldEmpty(
+                                    onChanged: (location) {
+                                      AppCubit.get(context).address.text =
+                                          location;
+                                    },
                                     prefix:
                                         const Icon(Icons.location_on_outlined),
                                     controller: AppCubit.get(context).title,
@@ -157,6 +169,11 @@ class _ExperienceState extends State<Experience> {
                                         bottom: 20,
                                         top: 10),
                                     child: textFieldEmpty(
+                                        onChanged: (startWork) {
+                                          AppCubit.get(context)
+                                              .startWorkDate
+                                              .text = startWork;
+                                        },
                                         controller:
                                             AppCubit.get(context).startWorkDate,
                                         hintText: "",
@@ -185,16 +202,19 @@ class _ExperienceState extends State<Experience> {
                                     text: "Save",
                                     onPressed: () {
                                       if (expForm.currentState!.validate()) {
+                                        AppCubit.get(context).updateProfile3();
+                                        AppCubit.get(context).percent = 0.75;
+
                                         Navigator.pushNamed(
                                             context, AppRouter.completeProfile);
                                         CacheHelper.putString(
-                                          key: SharedKeys.position!,
+                                          key: SharedKeys.position,
                                           value: AppCubit.get(context)
                                               .position
                                               .text,
                                         );
                                         CacheHelper.putString(
-                                          key: SharedKeys.companyName!,
+                                          key: SharedKeys.companyName,
                                           value: AppCubit.get(context)
                                               .companyName
                                               .text,

@@ -9,7 +9,11 @@ import '../../../../model/cubit/app_states.dart';
 import '../../../../model/widgets.dart';
 
 class AppliedJob extends StatefulWidget {
-  const AppliedJob({super.key});
+  final String? position;
+  final String? companyName;
+  final String? picture;
+
+  const AppliedJob({super.key, this.position, this.companyName, this.picture});
 
   @override
   State<AppliedJob> createState() => _AppliedJobState();
@@ -478,14 +482,18 @@ class _AppliedJobState extends State<AppliedJob> {
                           width: 60,
                           decoration: BoxDecoration(
                               color: Colors.grey,
-                              borderRadius: BorderRadiusDirectional.circular(15)
-                              //child:picture
-
-                              ),
+                              borderRadius:
+                                  BorderRadiusDirectional.circular(15)),
+                          child: Image.network(
+                            alignment: Alignment.center,
+                            widget.picture!,
+                            fit: BoxFit.fitWidth,
+                          ),
                         ),
                         const SizedBox(height: 10),
-                        headline2(text: "UI/UX Designer"),
-                        normalText(text: "Twitter. Jakarta,Indonesia"),
+                        headline2(text: widget.position!),
+                        normalText(
+                            text: "${widget.companyName!}. Jakarta,Indonesia"),
                       ],
                     ),
                   ),

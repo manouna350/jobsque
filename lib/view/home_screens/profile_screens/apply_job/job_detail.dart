@@ -8,7 +8,11 @@ import '../../../../model/widgets.dart';
 import '../../../../view_model/builder_items/pages_builder_items.dart';
 
 class JobDetail extends StatefulWidget {
-  const JobDetail({super.key});
+  final String? position;
+  final String? companyName;
+  final String? picture;
+
+  const JobDetail({super.key, this.position, this.companyName, this.picture});
 
   @override
   State<JobDetail> createState() => _JobDetailState();
@@ -66,14 +70,18 @@ class _JobDetailState extends State<JobDetail> {
                                   decoration: BoxDecoration(
                                       color: Colors.grey,
                                       borderRadius:
-                                          BorderRadiusDirectional.circular(15)
-                                      //child:picture
-
-                                      ),
+                                          BorderRadiusDirectional.circular(15)),
+                                  child: Image.network(
+                                    alignment: Alignment.center,
+                                    widget.picture!,
+                                    fit: BoxFit.fitWidth,
+                                  ),
                                 ),
                                 const SizedBox(height: 10),
-                                headline2(text: "Senior UI Designer"),
-                                normalText(text: "Twitter. Jakarta,Indonesia"),
+                                headline2(text: widget.position!),
+                                normalText(
+                                    text:
+                                        "${widget.companyName!}. Jakarta,Indonesia"),
                                 const SizedBox(height: 20),
                                 Row(
                                   mainAxisAlignment:

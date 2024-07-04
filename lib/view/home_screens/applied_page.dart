@@ -102,7 +102,7 @@ class _AppliedPageState extends State<AppliedPage> {
                     SizedBox(
                       height: 500,
                       child: AppliedItems(
-                        listItem: AppCubit.get(context).appliedList,
+                        listItem: AppCubit.get(context).jobList,
                         active: active,
                         rejected: rejected,
                       ),

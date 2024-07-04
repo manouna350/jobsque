@@ -82,6 +82,8 @@ class _PortfolioCompleteProfileState extends State<PortfolioCompleteProfile> {
                                     if (result != null) {
                                       setState(() {
                                         pickedFile = true;
+                                        AppCubit.get(context).updateProfile4();
+                                        AppCubit.get(context).percent = 1;
                                       });
                                     } else {
                                       null;

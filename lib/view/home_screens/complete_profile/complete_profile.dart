@@ -7,8 +7,14 @@ import '../../../model/cubit/app_cubit.dart';
 import '../../../model/cubit/app_states.dart';
 import '../../../model/widgets.dart';
 
-class CompleteProfile extends StatelessWidget {
+class CompleteProfile extends StatefulWidget {
   const CompleteProfile({super.key});
+
+  @override
+  State<CompleteProfile> createState() => _CompleteProfileState();
+}
+
+class _CompleteProfileState extends State<CompleteProfile> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppStates>(
@@ -39,24 +45,42 @@ class CompleteProfile extends StatelessWidget {
                             top: 10, left: 50, right: 50, bottom: 10),
                         child: CircularPercentIndicator(
                           radius: 50,
+                          addAutomaticKeepAlive: true,
                           backgroundColor: AppTheme.borderColor,
                           circularStrokeCap: CircularStrokeCap.round,
                           progressColor: AppTheme.buttonColor,
                           lineWidth: 8,
+                          animateFromLastPercent: true,
                           animation: true,
-                          percent: 0.5,
-                          center: const Text(
-                            "50%",
-                            style: TextStyle(
+                          percent: AppCubit.get(context).percent,
+                          center: Text(
+                            state is PersonalDetailsSaveSuccess
+                                ? "25%"
+                                : state is EducationSaveSuccess
+                                    ? "50%"
+                                    : state is ExperienceSaveSuccess
+                                        ? "75%"
+                                        : state is PortfolioSaveSuccess
+                                            ? "100%"
+                                            : "0%",
+                            style: const TextStyle(
                                 color: AppTheme.buttonColor,
                                 fontSize: 25,
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),
-                      const Text(
-                        "2/4 Completed",
-                        style: TextStyle(
+                      Text(
+                        state is PersonalDetailsSaveSuccess
+                            ? "1/4 completed"
+                            : state is EducationSaveSuccess
+                                ? "2/4 completed"
+                                : state is ExperienceSaveSuccess
+                                    ? "3/4 completed"
+                                    : state is PortfolioSaveSuccess
+                                        ? "Completed!"
+                                        : "0/4 completed",
+                        style: const TextStyle(
                             color: AppTheme.buttonColor,
                             fontWeight: FontWeight.bold),
                       ),
@@ -71,19 +95,27 @@ class CompleteProfile extends StatelessWidget {
                         height: 100,
                         width: 400,
                         decoration: BoxDecoration(
+                            color: state is PersonalDetailsSaveSuccess
+                                ? AppTheme.clickedBoxColor
+                                : AppTheme.primaryColor,
                             borderRadius: BorderRadius.circular(15),
                             border: Border.all(
-                              color: AppTheme.borderColor,
+                              color: state is PersonalDetailsSaveSuccess
+                                  ? AppTheme.buttonColor
+                                  : AppTheme.borderColor,
                             )),
                         child: Padding(
                           padding: const EdgeInsets.all(5),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              const CircleAvatar(
+                              CircleAvatar(
                                 radius: 13,
-                                backgroundColor: AppTheme.borderColor,
-                                child: Icon(
+                                backgroundColor:
+                                    state is PersonalDetailsSaveSuccess
+                                        ? AppTheme.buttonColor
+                                        : AppTheme.borderColor,
+                                child: const Icon(
                                   Icons.done,
                                   size: 15,
                                 ),
@@ -122,19 +154,26 @@ class CompleteProfile extends StatelessWidget {
                         height: 100,
                         width: 400,
                         decoration: BoxDecoration(
+                            color: state is EducationSaveSuccess
+                                ? AppTheme.clickedBoxColor
+                                : AppTheme.primaryColor,
                             borderRadius: BorderRadius.circular(15),
                             border: Border.all(
-                              color: AppTheme.borderColor,
+                              color: state is EducationSaveSuccess
+                                  ? AppTheme.buttonColor
+                                  : AppTheme.borderColor,
                             )),
                         child: Padding(
                           padding: const EdgeInsets.all(5),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              const CircleAvatar(
+                              CircleAvatar(
                                 radius: 13,
-                                backgroundColor: AppTheme.borderColor,
-                                child: Icon(
+                                backgroundColor: state is EducationSaveSuccess
+                                    ? AppTheme.buttonColor
+                                    : AppTheme.borderColor,
+                                child: const Icon(
                                   Icons.done,
                                   size: 15,
                                 ),
@@ -173,19 +212,26 @@ class CompleteProfile extends StatelessWidget {
                         height: 100,
                         width: 400,
                         decoration: BoxDecoration(
+                            color: state is ExperienceSaveSuccess
+                                ? AppTheme.clickedBoxColor
+                                : AppTheme.primaryColor,
                             borderRadius: BorderRadius.circular(15),
                             border: Border.all(
-                              color: AppTheme.borderColor,
+                              color: state is ExperienceSaveSuccess
+                                  ? AppTheme.buttonColor
+                                  : AppTheme.borderColor,
                             )),
                         child: Padding(
                           padding: const EdgeInsets.all(5),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              const CircleAvatar(
+                              CircleAvatar(
                                 radius: 13,
-                                backgroundColor: AppTheme.borderColor,
-                                child: Icon(
+                                backgroundColor: state is ExperienceSaveSuccess
+                                    ? AppTheme.buttonColor
+                                    : AppTheme.borderColor,
+                                child: const Icon(
                                   Icons.done,
                                   size: 15,
                                 ),
@@ -222,19 +268,26 @@ class CompleteProfile extends StatelessWidget {
                         height: 100,
                         width: 400,
                         decoration: BoxDecoration(
+                            color: state is PortfolioSaveSuccess
+                                ? AppTheme.clickedBoxColor
+                                : AppTheme.primaryColor,
                             borderRadius: BorderRadius.circular(15),
                             border: Border.all(
-                              color: AppTheme.borderColor,
+                              color: state is PortfolioSaveSuccess
+                                  ? AppTheme.buttonColor
+                                  : AppTheme.borderColor,
                             )),
                         child: Padding(
                           padding: const EdgeInsets.all(5),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              const CircleAvatar(
+                              CircleAvatar(
                                 radius: 13,
-                                backgroundColor: AppTheme.borderColor,
-                                child: Icon(
+                                backgroundColor: state is PortfolioSaveSuccess
+                                    ? AppTheme.buttonColor
+                                    : AppTheme.borderColor,
+                                child: const Icon(
                                   Icons.done,
                                   size: 15,
                                 ),

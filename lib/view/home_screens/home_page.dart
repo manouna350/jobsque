@@ -4,12 +4,28 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jobsque/model/colors_themes/color_palette.dart';
 import 'package:jobsque/model/cubit/app_cubit.dart';
 import 'package:jobsque/model/widgets.dart';
-import 'package:jobsque/view_model/builder_items/pages_builder_items.dart';
 import '../../model/cubit/app_states.dart';
+import '../../model/cubit/json_models/allJobs.dart';
+import '../../view_model/builder_items/pages_builder_items.dart';
 import '../../view_model/routes/route_name.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  final Data? jobItem;
+
+  const HomePage({super.key, this.jobItem});
+
+  homeList({required List list}) {
+    return ListView.separated(
+        separatorBuilder: (context, index) => Divider(
+              height: 10,
+              color: Colors.grey.withOpacity(0.1),
+            ),
+        shrinkWrap: true,
+        itemCount: list.length,
+        itemBuilder: (context, index) => HomeBuilderItem(
+              jobItem: list[index],
+            ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -130,25 +146,24 @@ class HomePage extends StatelessWidget {
                           ),
                           child: const Padding(
                             padding: EdgeInsets.all(8.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [],
-                                )
-                              ],
-                            ),
+                            // child: Image.network("${jobItem?.image}"),
                           ),
                         ),
                         const SizedBox(width: 20),
                         Container(
-                            height: 200,
-                            width: 300,
-                            decoration: BoxDecoration(
-                              color: Colors.teal,
-                              borderRadius: BorderRadius.circular(20),
-                            )),
+                          height: 200,
+                          width: 300,
+                          decoration: BoxDecoration(
+                            color: Colors.teal,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: const Padding(
+                            padding: EdgeInsets.all(10),
+                            // child:
+                            // SuggestedJobs(
+                            //     jobItem: AppCubit.get(context).jobList[0]),
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -171,13 +186,7 @@ class HomePage extends StatelessWidget {
                               })
                         ],
                       ),
-                      ListView.separated(
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) =>
-                              homelistItem(list: AppCubit.get(context).jobList),
-                          separatorBuilder: (context, index) =>
-                              const Divider(height: 1),
-                          itemCount: AppCubit.get(context).jobList.length)
+                      homeList(list: AppCubit.get(context).jobList)
                     ],
                   ),
                 )
@@ -185,17 +194,5 @@ class HomePage extends StatelessWidget {
             ),
           ));
         });
-  }
-
-  homelistItem({required List list}) {
-    return ListView.separated(
-        separatorBuilder: (context, index) => const SizedBox(
-              height: 10,
-            ),
-        shrinkWrap: true,
-        itemCount: list.length,
-        itemBuilder: (context, index) => HomeBuilderItem(
-              jobItem: list[index],
-            ));
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jobsque/model/colors_themes/color_palette.dart';
 import 'package:jobsque/model/cubit/app_cubit.dart';
 import 'package:jobsque/model/cubit/app_states.dart';
+import 'package:jobsque/model/cubit/json_models/allJobs.dart';
 import 'package:jobsque/model/widgets.dart';
 import 'package:jobsque/view_model/routes/route_name.dart';
 
@@ -16,13 +17,15 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+  SearchController searchController = SearchController();
+  late Data jobItem;
   bool fullTime = false;
   bool remote = false;
   bool partTime = false;
   bool onsite = false;
   bool contract = false;
   bool internship = false;
-
+  GlobalKey<FormState> searchForm = GlobalKey();
   String? chooseType;
   List salary = ["2k-4k", "5k-10k", "10k-more"];
   @override
@@ -50,12 +53,60 @@ class _SearchPageState extends State<SearchPage> {
                             size: 25,
                             color: Colors.black,
                           )),
-                      SizedBox(
-                        width: 340,
-                        child: searchField(
-                          controller: AppCubit.get(context).search,
-                          hintText: "Type something",
-                        ),
+                      Form(
+                        key: searchForm,
+                        child: SizedBox(
+                            width: 340,
+                            child: SearchAnchor(
+                              searchController: searchController,
+                              isFullScreen: false,
+                              dividerColor: Colors.grey,
+                              builder: (context, SearchController controller) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: SearchBar(
+                                    onSubmitted: (sub) {},
+                                    elevation: const WidgetStatePropertyAll(0),
+                                    hintText: "Type something...",
+                                    hintStyle: const WidgetStatePropertyAll(
+                                        TextStyle(fontSize: 15)),
+                                    leading: const Icon(Icons.search),
+                                    trailing: <Widget>[
+                                      IconButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              searchController.closeView("");
+                                            });
+                                          },
+                                          icon: const Icon(Icons.close))
+                                    ],
+                                    controller: searchController,
+                                    onTap: () {
+                                      searchController.openView();
+                                    },
+                                    onChanged: (search) {
+                                      searchController.openView();
+                                      searchController =
+                                          search as SearchController;
+                                    },
+                                  ),
+                                );
+                              },
+                              suggestionsBuilder: (BuildContext context,
+                                  SearchController controller) {
+                                return List<ListTile>.generate(5, (int index) {
+                                  final String item = "${jobItem.name}";
+                                  return ListTile(
+                                    title: Text(item),
+                                    onTap: () {
+                                      setState(() {
+                                        searchController.closeView(item);
+                                      });
+                                    },
+                                  );
+                                });
+                              },
+                            )),
                       ),
                     ],
                   ),

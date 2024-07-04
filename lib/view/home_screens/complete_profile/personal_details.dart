@@ -72,31 +72,45 @@ class _PersonalDetailsState extends State<PersonalDetails> {
                           children: [
                             normalText(text: "Name"),
                             textFieldEmpty(
+                                onChanged: (name) {
+                                  AppCubit.get(context).name.text = name;
+                                },
                                 controller: AppCubit.get(context).name,
                                 hintText: "Name",
                                 obscureText: false),
                             const SizedBox(height: 10),
                             normalText(text: "Bio"),
                             textFieldEmpty(
+                                onChanged: (bio) {
+                                  AppCubit.get(context).bio.text = bio;
+                                },
                                 controller: AppCubit.get(context).bio,
                                 hintText: "Bio",
                                 obscureText: false),
                             const SizedBox(height: 10),
                             normalText(text: "Address"),
                             textFieldEmpty(
+                                onChanged: (address) {
+                                  AppCubit.get(context).address.text = address;
+                                },
                                 controller: AppCubit.get(context).address,
                                 hintText: "Address",
                                 obscureText: false),
                             const SizedBox(height: 10),
                             normalText(text: "Phone"),
                             textFieldEmpty(
-                                controller: AppCubit.get(context).name,
+                                onChanged: (numb) {
+                                  AppCubit.get(context).number.text = numb;
+                                },
+                                controller: AppCubit.get(context).number,
                                 hintText: "Phone",
                                 obscureText: false),
                             const SizedBox(height: 30),
                             defaultButton(
                                 text: "Save",
                                 onPressed: () {
+                                  AppCubit.get(context).updateProfile1();
+                                  AppCubit.get(context).percent = 0.25;
                                   Navigator.pushNamed(
                                       context, AppRouter.completeProfile);
                                 })

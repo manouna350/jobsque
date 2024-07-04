@@ -161,11 +161,10 @@ class _LoginPageState extends State<LoginPage> {
                                     await AuthCubit.get(context).logIn(
                                         email: emailController.text,
                                         password: passwordController.text);
-                                    print(emailController.text);
-                                    print(passwordController.text);
+
                                     if (state is SignInSuccess) {
                                       CacheHelper.putString(
-                                        key: SharedKeys.email!,
+                                        key: SharedKeys.email,
                                         value: emailController.text,
                                       );
                                       CacheHelper.putString(
@@ -175,7 +174,7 @@ class _LoginPageState extends State<LoginPage> {
                                             .token!,
                                       );
                                       CacheHelper.putString(
-                                        key: SharedKeys.password!,
+                                        key: SharedKeys.password,
                                         value: passwordController.text,
                                       );
                                       Navigator.pushNamed(
@@ -183,7 +182,7 @@ class _LoginPageState extends State<LoginPage> {
                                       AppCubit.get(context).getJob();
                                     }
                                   } else if (state is SignInLoading) {
-                                    print("loading");
+                                    const CircularProgressIndicator();
                                   }
                                 });
                           },

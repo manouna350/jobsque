@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jobsque/view_model/routes/route_name.dart';
 import '../../model/colors_themes/color_palette.dart';
 import '../../model/cubit/app_cubit.dart';
 import '../../model/cubit/app_states.dart';
 import '../../model/widgets.dart';
-import '../../view_model/builder_items/pages_builder_items.dart';
 
 class MessagesPage extends StatefulWidget {
   const MessagesPage({super.key});
@@ -228,9 +228,70 @@ class _MessagesPageState extends State<MessagesPage> {
                         )
                       ],
                     ),
-                    MessageItems(
-                      listItem: AppCubit.get(context).messageList,
+                    // MessageItems(
+                    //   listItem: AppCubit.get(context).messageList,
+                    // ),
+                    title(text: "1 message"),
+                    const SizedBox(
+                      height: 10,
                     ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, AppRouter.chat);
+                      },
+                      child: Padding(
+                        padding:
+                            const EdgeInsets.only(top: 5, left: 15, right: 15),
+                        child: Row(
+                          children: [
+                            Stack(children: [
+                              CircleAvatar(
+                                radius: 25,
+                                child: SizedBox(
+                                  height: 80,
+                                  width: 70,
+                                  child: Image.asset(
+                                    "assets/images/twitter.png",
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                              ),
+                              const CircleAvatar(
+                                radius: 10,
+                                backgroundColor: Colors.green,
+                                child: Center(
+                                    child: Text(
+                                  "1",
+                                  style: TextStyle(fontSize: 15),
+                                )),
+                              )
+                            ]),
+                            const SizedBox(width: 10),
+                            Expanded(
+                              child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    headline2(text: "Twitter"),
+                                    const Text(
+                                        softWrap: true,
+                                        "Ok! the google meet link for later this afternoon."
+                                        "I ask for the timeliness,Thank you! "
+                                        "https://meet.google.com/dis-sxdu-ave",
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                        ),
+                                        overflow: TextOverflow.ellipsis),
+                                  ]),
+                            ),
+                            const Text(
+                              "12:30",
+                              style: TextStyle(
+                                  color: AppTheme.buttonColor, fontSize: 17),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ),

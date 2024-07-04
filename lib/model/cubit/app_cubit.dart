@@ -38,7 +38,7 @@ class AppCubit extends Cubit<AppStates> {
   final ImagePicker picker = ImagePicker();
   XFile? image;
   static List<Widget> screens = [
-    HomePage(),
+    const HomePage(),
     const MessagesPage(),
     const AppliedPage(),
     const SavedPage(),
@@ -78,5 +78,40 @@ class AppCubit extends Cubit<AppStates> {
               emit(GetJobSuccess())
             })
         .catchError((error) => {print(error.toString()), emit(GetJobError())});
+  }
+
+  Future<void> getProfile() async {
+    emit(GetJobLoading());
+    await DioHelper.getData(
+            endPoint: profile,
+            token: "11484|Xxo5VPB793heudRbtsYk7V2bmFo2qZaH9qf8jXCj")
+        .then((value) => {
+              print(value.data),
+              allJobsList = Jobs.fromJson(value.data),
+              jobList = allJobsList!.data!,
+              emit(GetJobSuccess())
+            })
+        .catchError((error) => {print(error.toString()), emit(GetJobError())});
+  }
+
+  updateProfile1() {
+    emit(PersonalDetailsSaveSuccess());
+  }
+
+  updateProfile2() {
+    emit(EducationSaveSuccess());
+  }
+
+  updateProfile3() {
+    emit(ExperienceSaveSuccess());
+  }
+
+  updateProfile4() {
+    emit(PortfolioSaveSuccess());
+  }
+
+  double percent = 0;
+  addSave({required id}) async {
+    savedList.clear();
   }
 }

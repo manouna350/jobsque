@@ -154,8 +154,10 @@ Widget textFieldEmpty({
   required bool obscureText,
   String? Function(String?)? validator,
   Function? onTap,
+  void Function(String)? onChanged,
 }) =>
     TextFormField(
+      onChanged: onChanged!,
       onTap: () {
         onTap!();
       },

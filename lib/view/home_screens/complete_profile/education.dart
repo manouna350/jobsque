@@ -66,6 +66,10 @@ class _EducationState extends State<Education> {
                                         bottom: 10,
                                         top: 10),
                                     child: textFieldEmpty(
+                                      onChanged: (university) {
+                                        AppCubit.get(context).university.text =
+                                            university;
+                                      },
                                       validator: (university) => university!
                                                   .length <
                                               3
@@ -81,6 +85,9 @@ class _EducationState extends State<Education> {
                                   padding: const EdgeInsets.only(
                                       left: 20, right: 20, bottom: 10, top: 10),
                                   child: textFieldEmpty(
+                                    onChanged: (title) {
+                                      AppCubit.get(context).title.text = title;
+                                    },
                                     controller: AppCubit.get(context).title,
                                     hintText: "",
                                     obscureText: false,
@@ -94,6 +101,11 @@ class _EducationState extends State<Education> {
                                         bottom: 10,
                                         top: 10),
                                     child: textFieldEmpty(
+                                        onChanged: (startDate) {
+                                          AppCubit.get(context)
+                                              .startEduDate
+                                              .text = startDate;
+                                        },
                                         controller:
                                             AppCubit.get(context).startEduDate,
                                         hintText: "",
@@ -123,6 +135,11 @@ class _EducationState extends State<Education> {
                                         bottom: 20,
                                         top: 10),
                                     child: textFieldEmpty(
+                                        onChanged: (eduDateEnd) {
+                                          AppCubit.get(context)
+                                              .endEduDate
+                                              .text = eduDateEnd;
+                                        },
                                         controller:
                                             AppCubit.get(context).endEduDate,
                                         hintText: "",
@@ -148,19 +165,22 @@ class _EducationState extends State<Education> {
                                     text: "Save",
                                     onPressed: () {
                                       if (eduForm.currentState!.validate()) {
+                                        AppCubit.get(context).updateProfile2();
+                                        AppCubit.get(context).percent = 0.50;
                                         Navigator.pushNamed(
                                             context, AppRouter.completeProfile);
                                         CacheHelper.putString(
-                                          key: SharedKeys.university!,
+                                          key: SharedKeys.university,
                                           value: AppCubit.get(context)
                                               .university
                                               .text,
                                         );
                                         CacheHelper.putString(
-                                          key: SharedKeys.title!,
+                                          key: SharedKeys.title,
                                           value:
                                               AppCubit.get(context).title.text,
                                         );
+                                        state is PersonalDetailsSaveSuccess;
 
                                         setState(() {
                                           isComplete = true;
