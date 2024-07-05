@@ -16,7 +16,7 @@ class ProfilePage extends StatelessWidget {
         body: Stack(children: [
           Positioned(
             height: 250,
-            width: 600,
+            width: 500,
             child: Container(
               decoration: const BoxDecoration(color: Color(0xffD6E4FF)),
               child: Row(
