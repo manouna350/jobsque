@@ -16,7 +16,7 @@ class ProfilePage extends StatelessWidget {
         body: Stack(children: [
           Positioned(
             height: 250,
-            width: 500,
+            width: 600,
             child: Container(
               decoration: const BoxDecoration(color: Color(0xffD6E4FF)),
               child: Row(
@@ -53,7 +53,7 @@ class ProfilePage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  headline(text: "  ${AppCubit.get(context).name.text}"),
+                  headline(text: AppCubit.get(context).name.text),
                   normalText(text: 'Senior UI/UX Designer'),
                   const SizedBox(
                     height: 10,

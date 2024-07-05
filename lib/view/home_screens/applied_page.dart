@@ -29,86 +29,83 @@ class _AppliedPageState extends State<AppliedPage> {
                 centerTitle: true,
                 title: headline2(text: "Applied"),
               ),
-              body: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          left: 20, right: 20, bottom: 10),
-                      child: Container(
-                        height: 50,
-                        width: double.maxFinite,
-                        decoration: BoxDecoration(
-                            color: AppTheme.boxColor,
-                            borderRadius: BorderRadiusDirectional.circular(30)),
-                        child: Row(
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                setState(() {
-                                  active = true;
-                                  rejected = false;
-                                });
-                              },
-                              child: Container(
-                                height: 50,
-                                width: 180,
-                                decoration: BoxDecoration(
+              body: Column(
+                children: [
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 20, right: 20, bottom: 10),
+                    child: Container(
+                      height: 50,
+                      width: double.maxFinite,
+                      decoration: BoxDecoration(
+                          color: AppTheme.boxColor,
+                          borderRadius: BorderRadiusDirectional.circular(30)),
+                      child: Row(
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                active = true;
+                                rejected = false;
+                              });
+                            },
+                            child: Container(
+                              height: 50,
+                              width: 180,
+                              decoration: BoxDecoration(
+                                  color: active == true
+                                      ? AppTheme.selectedSmallContainer
+                                      : AppTheme.boxColor,
+                                  borderRadius:
+                                      BorderRadiusDirectional.circular(30)),
+                              child: Center(
+                                  child: Text(
+                                "Active",
+                                style: TextStyle(
                                     color: active == true
-                                        ? AppTheme.selectedSmallContainer
-                                        : AppTheme.boxColor,
-                                    borderRadius:
-                                        BorderRadiusDirectional.circular(30)),
-                                child: Center(
-                                    child: Text(
-                                  "Active",
-                                  style: TextStyle(
-                                      color: active == true
-                                          ? AppTheme.primaryColor
-                                          : AppTheme.sentence),
-                                )),
-                              ),
+                                        ? AppTheme.primaryColor
+                                        : AppTheme.sentence),
+                              )),
                             ),
-                            InkWell(
-                              onTap: () {
-                                setState(() {
-                                  active = false;
-                                  rejected = true;
-                                });
-                              },
-                              child: Container(
-                                height: 50,
-                                width: 180,
-                                decoration: BoxDecoration(
+                          ),
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                active = false;
+                                rejected = true;
+                              });
+                            },
+                            child: Container(
+                              height: 50,
+                              width: 180,
+                              decoration: BoxDecoration(
+                                  color: rejected == true
+                                      ? AppTheme.selectedSmallContainer
+                                      : AppTheme.boxColor,
+                                  borderRadius:
+                                      BorderRadiusDirectional.circular(30)),
+                              child: Center(
+                                  child: Text(
+                                "Rejected",
+                                style: TextStyle(
                                     color: rejected == true
-                                        ? AppTheme.selectedSmallContainer
-                                        : AppTheme.boxColor,
-                                    borderRadius:
-                                        BorderRadiusDirectional.circular(30)),
-                                child: Center(
-                                    child: Text(
-                                  "Rejected",
-                                  style: TextStyle(
-                                      color: rejected == true
-                                          ? AppTheme.primaryColor
-                                          : AppTheme.sentence),
-                                )),
-                              ),
+                                        ? AppTheme.primaryColor
+                                        : AppTheme.sentence),
+                              )),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
-                    SizedBox(
-                      height: 500,
-                      child: AppliedItems(
-                        listItem: AppCubit.get(context).jobList,
-                        active: active,
-                        rejected: rejected,
-                      ),
-                    )
-                  ],
-                ),
+                  ),
+                  Expanded(
+                    child: AppliedItems(
+                      listItem: AppCubit.get(context).jobList,
+                      active: active,
+                      rejected: rejected,
+                    ),
+                  ),
+                ],
               ));
         });
   }

@@ -827,13 +827,12 @@ class _AppliedItemsState extends State<AppliedItems> {
         body: widget.active == true
             ? widget.listItem.isEmpty
                 ? title(text: "${widget.listItem.length.toString()} Jobs")
-                : SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        title(
-                            text: "${widget.listItem.length.toString()} Jobs"),
-                        Padding(
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      title(text: "${widget.listItem.length.toString()} Jobs"),
+                      Expanded(
+                        child: Padding(
                           padding: const EdgeInsets.all(10),
                           child: ListView.separated(
                               shrinkWrap: true,
@@ -847,8 +846,8 @@ class _AppliedItemsState extends State<AppliedItems> {
                                     jobItem: widget.listItem[index],
                                   )),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   )
             : widget.rejected == true
                 ? Padding(
