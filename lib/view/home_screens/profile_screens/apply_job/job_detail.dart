@@ -5,7 +5,7 @@ import 'package:jobsque/view_model/routes/route_name.dart';
 import '../../../../model/cubit/app_cubit.dart';
 import '../../../../model/cubit/app_states.dart';
 import '../../../../model/widgets.dart';
-import '../../../../view_model/builder_items/pages_builder_items.dart';
+import '../../../../view_model/builder_items/job_list_items.dart';
 
 class JobDetail extends StatefulWidget {
   final String? position;

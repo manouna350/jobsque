@@ -6,8 +6,8 @@ import '../model/cubit/app_cubit.dart';
 import '../model/cubit/app_states.dart';
 import '../model/shared/cache_helper.dart';
 import '../model/shared/enum.dart';
-import '../view_model/onboarding/builder_onboarding.dart';
-import '../view_model/onboarding/onboarding_model.dart';
+import '../view_model/builder_items/onboarding/builder_onboarding.dart';
+import '../view_model/builder_items/onboarding/onboarding_model.dart';
 import '../view_model/routes/route_name.dart';
 
 class OnBoardingScreen extends StatefulWidget {

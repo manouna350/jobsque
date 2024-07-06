@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         title: 'JOBSQUE',
         theme: CustomThemes.lightTheme,
         onGenerateRoute: onGenerate,
-        initialRoute: AppRouter.homeScreen,
+        initialRoute: AppRouter.splash,
       ),
     );
   }

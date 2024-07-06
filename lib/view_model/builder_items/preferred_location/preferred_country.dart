@@ -1,7 +1,8 @@
 import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:jobsque/model/widgets.dart';
-import '../../model/colors_themes/color_palette.dart';
+
+import '../../../model/colors_themes/color_palette.dart';
 
 class SelectCountry extends StatefulWidget {
   const SelectCountry({super.key});

@@ -4,8 +4,8 @@ import 'package:jobsque/model/cubit/app_cubit.dart';
 import 'package:jobsque/model/cubit/app_states.dart';
 import 'package:jobsque/view_model/routes/route_name.dart';
 import '../model/widgets.dart';
-import '../view_model/preferred_location/preferred_country.dart';
-import '../view_model/preferred_location/preferred_location_selection_items.dart';
+import '../view_model/builder_items/preferred_location/preferred_country.dart';
+import '../view_model/builder_items/preferred_location/preferred_location_selection_items.dart';
 
 class PreferredLocation extends StatelessWidget {
   const PreferredLocation({super.key});
@@ -29,7 +29,7 @@ class PreferredLocation extends StatelessWidget {
                           onPressed: () {
                             Navigator.pushNamed(context, AppRouter.workType);
                           },
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.arrow_back,
                             color: Colors.black,
                           )),

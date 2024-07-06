@@ -6,7 +6,7 @@ import 'package:jobsque/model/cubit/app_cubit.dart';
 import 'package:jobsque/model/widgets.dart';
 import '../../model/cubit/app_states.dart';
 import '../../model/cubit/json_models/allJobs.dart';
-import '../../view_model/builder_items/pages_builder_items.dart';
+import '../../view_model/builder_items/job_list_items.dart';
 import '../../view_model/routes/route_name.dart';
 
 class HomePage extends StatelessWidget {

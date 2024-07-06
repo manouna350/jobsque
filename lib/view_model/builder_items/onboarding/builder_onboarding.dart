@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../routes/route_name.dart';
+import '../../routes/route_name.dart';
 import 'onboarding_model.dart';
 
 class BuilderOnBoarding extends StatefulWidget {
