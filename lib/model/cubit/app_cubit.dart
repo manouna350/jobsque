@@ -114,8 +114,4 @@ class AppCubit extends Cubit<AppStates> {
       emit(DeleteJobError());
     }
   }
-
-  addSave({required id}) async {
-    savedList.clear();
-  }
 }
