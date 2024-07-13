@@ -17,13 +17,17 @@ class _SavedPageState extends State<SavedPage> {
   Widget build(BuildContext context) {
     return BlocBuilder<AppCubit, AppStates>(builder: (context, state) {
       return Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
-            title: headline2(text: "Saved"),
+          body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 25, bottom: 10),
+            child: Center(child: headline2(text: "Saved")),
           ),
-          body: SavedItems(
+          SavedItems(
             listItem: AppCubit.get(context).jobList,
-          ));
+          ),
+        ],
+      ));
     });
   }
 }

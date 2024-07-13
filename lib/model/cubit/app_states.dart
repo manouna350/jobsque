@@ -25,3 +25,9 @@ class EducationSaveSuccess extends AppStates {}
 class ExperienceSaveSuccess extends AppStates {}
 
 class PortfolioSaveSuccess extends AppStates {}
+
+class DeleteJobSuccess extends AppStates {}
+
+class DeleteJobLoading extends AppStates {}
+
+class DeleteJobError extends AppStates {}

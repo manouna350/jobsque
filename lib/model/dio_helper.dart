@@ -39,7 +39,7 @@ class DioHelper {
 
   static deleteData({
     required String endPoint,
-    required Map<String, dynamic> data,
+    required Map<dynamic, dynamic> data,
   }) async {
     var response = await dio.delete(endPoint, data: data);
     return response.data;

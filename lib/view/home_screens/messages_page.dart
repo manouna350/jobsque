@@ -23,15 +23,15 @@ class _MessagesPageState extends State<MessagesPage> {
           AppCubit.get(context);
 
           return Scaffold(
-            appBar: AppBar(
-              centerTitle: true,
-              title: headline2(text: "Messages"),
-            ),
             body: SingleChildScrollView(
               child: Form(
                 key: msgForm,
                 child: Column(
                   children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 25, bottom: 10),
+                      child: Center(child: headline2(text: "Messages")),
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,

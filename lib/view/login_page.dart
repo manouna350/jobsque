@@ -83,12 +83,10 @@ class _LoginPageState extends State<LoginPage> {
                             },
                             obscureText: false,
                             controller: emailController,
-                            hintText: "Name",
-                            prefix: const Icon(Icons.person_outline),
-                            validator: (name) => name!.length < 3
-                                // ||
-                                //     name.length > 15
-                                ? "name should be more than 3 characters and less than 15"
+                            hintText: "Email",
+                            prefix: const Icon(Icons.email_outlined),
+                            validator: (email) => email!.length < 3
+                                ? "please enter valid email"
                                 : null),
                         const SizedBox(
                           height: 25,
@@ -154,35 +152,34 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         BlocBuilder<AuthCubit, AuthState>(
                           builder: (context, state) {
+                            AuthCubit authCubit = AuthCubit.get(context);
+                            AppCubit appCubit = AppCubit.get(context);
                             return defaultButton(
                                 text: "Login",
                                 onPressed: () async {
                                   if (logForm.currentState!.validate()) {
-                                    await AuthCubit.get(context).logIn(
+                                    await authCubit.logIn(
                                         email: emailController.text,
                                         password: passwordController.text);
-
-                                    if (state is SignInSuccess) {
-                                      CacheHelper.putString(
-                                        key: SharedKeys.email,
-                                        value: emailController.text,
-                                      );
-                                      CacheHelper.putString(
-                                        key: SharedKeys.token,
-                                        value: AuthCubit.get(context)
-                                            .userLogin
-                                            .token!,
-                                      );
-                                      CacheHelper.putString(
-                                        key: SharedKeys.password,
-                                        value: passwordController.text,
-                                      );
-                                      Navigator.pushNamed(
-                                          context, AppRouter.homeScreen);
-                                      AppCubit.get(context).getJob();
-                                    }
-                                  } else if (state is SignInLoading) {
-                                    const CircularProgressIndicator();
+                                    Navigator.of(context)
+                                        .pushNamedAndRemoveUntil(
+                                            AppRouter.homeScreen,
+                                            (route) => false);
+                                    appCubit.getJob();
+                                    CacheHelper.putString(
+                                      key: SharedKeys.email,
+                                      value: emailController.text,
+                                    );
+                                    CacheHelper.putString(
+                                      key: SharedKeys.token,
+                                      value: authCubit.userLogin.token!,
+                                    );
+                                    CacheHelper.putString(
+                                      key: SharedKeys.password,
+                                      value: passwordController.text,
+                                    );
+                                  } else {
+                                    null;
                                   }
                                 });
                           },

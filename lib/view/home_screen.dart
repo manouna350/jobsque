@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jobsque/model/cubit/app_cubit.dart';
 import 'package:jobsque/model/cubit/app_states.dart';
 
+import '../model/cubit/auth_cubit.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -16,6 +18,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return BlocConsumer<AppCubit, AppStates>(
       listener: (context, state) {},
       builder: (context, state) {
+        AuthCubit.get(context).getProfile(
+            email: AppCubit.get(context).email.text,
+            username: AppCubit.get(context).name.text);
         return Scaffold(
           body: AppCubit.screens[AppCubit.get(context).currentIndex],
           bottomNavigationBar: BottomNavigationBar(

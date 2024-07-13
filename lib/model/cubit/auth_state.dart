@@ -10,3 +10,15 @@ class SignInSuccess extends AuthState {}
 class SignInLoading extends AuthState {}
 
 class SignInFailure extends AuthState {}
+
+class RegSuccess extends AuthState {}
+
+class RegLoading extends AuthState {}
+
+class RegFailure extends AuthState {}
+
+class GetProfileSuccess extends AuthState {}
+
+class GetProfileLoading extends AuthState {}
+
+class GetProfileFailure extends AuthState {}

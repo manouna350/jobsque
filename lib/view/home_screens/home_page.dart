@@ -5,7 +5,7 @@ import 'package:jobsque/model/colors_themes/color_palette.dart';
 import 'package:jobsque/model/cubit/app_cubit.dart';
 import 'package:jobsque/model/widgets.dart';
 import '../../model/cubit/app_states.dart';
-import '../../model/cubit/json_models/allJobs.dart';
+import '../../model/cubit/json_models/all_jobs.dart';
 import '../../view_model/builder_items/job_list_items.dart';
 import '../../view_model/routes/route_name.dart';
 
@@ -53,7 +53,7 @@ class HomePage extends StatelessWidget {
                                 children: [
                                   headline(
                                       text:
-                                          "Hi,  ${AppCubit.get(context).name.text}"),
+                                          "Hi,${AppCubit.get(context).name.text}"),
                                   const AnimatedEmoji(
                                     AnimatedEmojis.wave,
                                     size: 30,

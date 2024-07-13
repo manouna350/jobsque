@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jobsque/model/cubit/json_models/allJobs.dart';
+import 'package:jobsque/model/cubit/json_models/all_jobs.dart';
 import 'package:jobsque/model/widgets.dart';
 import '../routes/route_name.dart';
 import 'job_list_items.dart';

@@ -1,150 +1,167 @@
 import 'package:flutter/material.dart';
+import 'package:jobsque/model/cubit/app_cubit.dart';
 import '../../model/colors_themes/color_palette.dart';
-import '../../model/cubit/json_models/allJobs.dart';
+import '../../model/cubit/json_models/all_jobs.dart';
 import '../../model/widgets.dart';
 import '../../view/home_screens/profile_screens/apply_job/applied_job.dart';
 import '../../view/home_screens/profile_screens/apply_job/job_detail.dart';
 import '../routes/route_name.dart';
 
-class SavedBuilderItem extends StatelessWidget {
+class SavedBuilderItem extends StatefulWidget {
   final Data jobItem;
   const SavedBuilderItem({super.key, required this.jobItem});
 
   @override
+  State<SavedBuilderItem> createState() => _SavedBuilderItemState();
+}
+
+class _SavedBuilderItemState extends State<SavedBuilderItem> {
+  @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        showModalBottomSheet(
-            context: context,
-            barrierColor: Colors.black.withOpacity(0.7),
-            showDragHandle: true,
-            enableDrag: true,
-            elevation: 2,
-            builder: (BuildContext context) {
-              return Container(
-                  height: 280,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadiusDirectional.circular(15)),
-                  child: Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(15),
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(
-                                    height: 50,
-                                    width: double.maxFinite,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(30),
-                                        border: Border.all(
-                                          color: AppTheme.borderColor,
-                                        )),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8),
-                                      child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            const Icon(
-                                              Icons.send_outlined,
-                                              color: Colors.black,
-                                            ),
-                                            const Text(
-                                              "ApplyJob",
-                                              style: TextStyle(
-                                                  color: Colors.black),
-                                            ),
-                                            IconButton(
-                                                onPressed: () {
-                                                  Navigator.pushNamed(
-                                                      context,
-                                                      AppRouter
-                                                          .applyJobStepper);
-                                                },
-                                                icon: const Icon(
-                                                  Icons.arrow_forward,
-                                                  color: Colors.black,
-                                                ))
-                                          ]),
+        setState(() {
+          showModalBottomSheet(
+              context: context,
+              barrierColor: Colors.black.withOpacity(0.7),
+              showDragHandle: true,
+              enableDrag: true,
+              elevation: 2,
+              builder: (BuildContext context) {
+                return Container(
+                    height: 280,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadiusDirectional.circular(15)),
+                    child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(15),
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      height: 50,
+                                      width: double.maxFinite,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          border: Border.all(
+                                            color: AppTheme.borderColor,
+                                          )),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8),
+                                        child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              const Icon(
+                                                Icons.send_outlined,
+                                                color: Colors.black,
+                                              ),
+                                              const Text(
+                                                "ApplyJob",
+                                                style: TextStyle(
+                                                    color: Colors.black),
+                                              ),
+                                              IconButton(
+                                                  onPressed: () {
+                                                    Navigator.pushNamed(
+                                                        context,
+                                                        AppRouter
+                                                            .applyJobStepper);
+                                                  },
+                                                  icon: const Icon(
+                                                    Icons.arrow_forward,
+                                                    color: Colors.black,
+                                                  ))
+                                            ]),
+                                      ),
                                     ),
-                                  ),
-                                  const SizedBox(height: 20),
-                                  Container(
-                                    height: 50,
-                                    width: double.maxFinite,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(30),
-                                        border: Border.all(
-                                          color: AppTheme.borderColor,
-                                        )),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            const Icon(
-                                              Icons.share,
-                                              color: Colors.black,
-                                            ),
-                                            const Text(
-                                              "Share via",
-                                              style: TextStyle(
-                                                  color: Colors.black),
-                                            ),
-                                            IconButton(
-                                                onPressed: () {},
-                                                icon: const Icon(
-                                                  Icons.arrow_forward,
-                                                  color: Colors.black,
-                                                ))
-                                          ]),
+                                    const SizedBox(height: 20),
+                                    Container(
+                                      height: 50,
+                                      width: double.maxFinite,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          border: Border.all(
+                                            color: AppTheme.borderColor,
+                                          )),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              const Icon(
+                                                Icons.share,
+                                                color: Colors.black,
+                                              ),
+                                              const Text(
+                                                "Share via",
+                                                style: TextStyle(
+                                                    color: Colors.black),
+                                              ),
+                                              IconButton(
+                                                  onPressed: () {},
+                                                  icon: const Icon(
+                                                    Icons.arrow_forward,
+                                                    color: Colors.black,
+                                                  ))
+                                            ]),
+                                      ),
                                     ),
-                                  ),
-                                  const SizedBox(height: 20),
-                                  Container(
-                                    height: 50,
-                                    width: double.maxFinite,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(30),
-                                        border: Border.all(
-                                          color: AppTheme.borderColor,
-                                        )),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            const Icon(
-                                              Icons.delete_outline,
-                                              color: Colors.black,
-                                            ),
-                                            const Text(
-                                              "Cancel save",
-                                              style: TextStyle(
-                                                  color: Colors.black),
-                                            ),
-                                            IconButton(
-                                                onPressed: () {},
-                                                icon: const Icon(
-                                                  Icons.arrow_forward,
-                                                  color: Colors.black,
-                                                ))
-                                          ]),
+                                    const SizedBox(height: 20),
+                                    Container(
+                                      height: 50,
+                                      width: double.maxFinite,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          border: Border.all(
+                                            color: AppTheme.borderColor,
+                                          )),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              const Icon(
+                                                Icons.delete_outline,
+                                                color: Colors.black,
+                                              ),
+                                              const Text(
+                                                "Cancel save",
+                                                style: TextStyle(
+                                                    color: Colors.black),
+                                              ),
+                                              IconButton(
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      AppCubit.get(context)
+                                                          .deleteJobItem(widget
+                                                              .jobItem.id);
+                                                    });
+                                                  },
+                                                  icon: const Icon(
+                                                    Icons.arrow_forward,
+                                                    color: Colors.black,
+                                                  ))
+                                            ]),
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                          ])));
-            });
+                            ])));
+              });
+        });
       },
       child: Padding(
         padding: const EdgeInsets.only(bottom: 15, left: 5),
@@ -161,7 +178,7 @@ class SavedBuilderItem extends StatelessWidget {
                   width: 50,
                   child: Image.network(
                     alignment: Alignment.center,
-                    "${jobItem.image}",
+                    "${widget.jobItem.image}",
                     fit: BoxFit.fill,
                   ),
                 ),
@@ -176,8 +193,8 @@ class SavedBuilderItem extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            headline2(text: "${jobItem.name}"),
-                            normalText(text: "${jobItem.compName}"),
+                            headline2(text: "${widget.jobItem.name}"),
+                            normalText(text: "${widget.jobItem.compName}"),
                           ],
                         ),
                         const SizedBox(width: 30),
@@ -194,7 +211,7 @@ class SavedBuilderItem extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                normalText(text: "${jobItem.createdAt}"),
+                normalText(text: "${widget.jobItem.createdAt}"),
                 const SizedBox(
                   width: 50,
                 ),

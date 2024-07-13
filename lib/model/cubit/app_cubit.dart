@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:jobsque/model/constant.dart';
-import 'package:jobsque/model/cubit/json_models/allJobs.dart';
+import 'package:jobsque/model/cubit/json_models/all_jobs.dart';
 import 'package:jobsque/model/dio_helper.dart';
 import '../../view/home_screens/applied_page.dart';
 import '../../view/home_screens/home_page.dart';
@@ -35,6 +36,7 @@ class AppCubit extends Cubit<AppStates> {
   TextEditingController endEduDate = TextEditingController();
   TextEditingController startWorkDate = TextEditingController();
   var currentIndex = 0;
+  double percent = 0;
   final ImagePicker picker = ImagePicker();
   XFile? image;
   static List<Widget> screens = [
@@ -44,7 +46,7 @@ class AppCubit extends Cubit<AppStates> {
     const SavedPage(),
     const ProfilePage(),
   ];
-  List<Data> messageList = [];
+  List<Data> notificationList = [];
   List<Data> appliedList = [];
   List<Data> jobList = [];
   List<Data> savedList = [];
@@ -65,35 +67,6 @@ class AppCubit extends Cubit<AppStates> {
     }
   }
 
-  Future<void> getJob() async {
-    jobList.clear();
-    emit(GetJobLoading());
-    await DioHelper.getData(
-            endPoint: allJobs,
-            token: "11484|Xxo5VPB793heudRbtsYk7V2bmFo2qZaH9qf8jXCj")
-        .then((value) => {
-              print(value.data),
-              allJobsList = Jobs.fromJson(value.data),
-              jobList = allJobsList!.data!,
-              emit(GetJobSuccess())
-            })
-        .catchError((error) => {print(error.toString()), emit(GetJobError())});
-  }
-
-  Future<void> getProfile() async {
-    emit(GetJobLoading());
-    await DioHelper.getData(
-            endPoint: profile,
-            token: "11484|Xxo5VPB793heudRbtsYk7V2bmFo2qZaH9qf8jXCj")
-        .then((value) => {
-              print(value.data),
-              allJobsList = Jobs.fromJson(value.data),
-              jobList = allJobsList!.data!,
-              emit(GetJobSuccess())
-            })
-        .catchError((error) => {print(error.toString()), emit(GetJobError())});
-  }
-
   updateProfile1() {
     emit(PersonalDetailsSaveSuccess());
   }
@@ -110,7 +83,38 @@ class AppCubit extends Cubit<AppStates> {
     emit(PortfolioSaveSuccess());
   }
 
-  double percent = 0;
+  getJob() async {
+    jobList.clear();
+    emit(GetJobLoading());
+    await DioHelper.getData(
+            endPoint: allJobs,
+            token: "11484|Xxo5VPB793heudRbtsYk7V2bmFo2qZaH9qf8jXCj")
+        .then((value) => {
+              allJobsList = Jobs.fromJson(value.data),
+              jobList = allJobsList!.data!,
+              emit(GetJobSuccess())
+            })
+        .catchError((error) => {emit(GetJobError())});
+  }
+
+  deleteJobItem(id) async {
+    emit(DeleteJobLoading());
+    try {
+      final response = await DioHelper.deleteData(
+        data: id,
+        endPoint: allJobs,
+      );
+      if (response.statusCode == 200 || response.statusCode == 204) {
+        emit(DeleteJobSuccess());
+      }
+    } catch (error) {
+      if (kDebugMode) {
+        print(error.toString());
+      }
+      emit(DeleteJobError());
+    }
+  }
+
   addSave({required id}) async {
     savedList.clear();
   }

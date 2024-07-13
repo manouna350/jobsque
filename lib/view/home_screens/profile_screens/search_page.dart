@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jobsque/model/colors_themes/color_palette.dart';
 import 'package:jobsque/model/cubit/app_cubit.dart';
 import 'package:jobsque/model/cubit/app_states.dart';
-import 'package:jobsque/model/cubit/json_models/allJobs.dart';
+import 'package:jobsque/model/cubit/json_models/all_jobs.dart';
 import 'package:jobsque/model/widgets.dart';
 import 'package:jobsque/view_model/routes/route_name.dart';
 

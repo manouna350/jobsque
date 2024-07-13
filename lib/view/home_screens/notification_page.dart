@@ -30,7 +30,7 @@ class _NotificationPageState extends State<NotificationPage> {
                 title: headline(text: "Notification"),
               ),
               body: NotificationPageItems(
-                listItem: AppCubit.get(context).messageList,
+                listItem: AppCubit.get(context).notificationList,
               ));
         });
   }

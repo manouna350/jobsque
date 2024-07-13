@@ -4,6 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jobsque/model/cubit/app_cubit.dart';
 import 'package:jobsque/model/cubit/app_states.dart';
 import 'package:jobsque/model/widgets.dart';
+import '../model/cubit/auth_cubit.dart';
+import '../model/shared/cache_helper.dart';
+import '../model/shared/enum.dart';
 import '../view_model/routes/route_name.dart';
 
 class CreateAccount extends StatefulWidget {
@@ -134,17 +137,49 @@ class _CreateAccountState extends State<CreateAccount> {
                           const SizedBox(
                             height: 15,
                           ),
-                          defaultButton(
-                              text: "Create account",
-                              onPressed: () {
-                                if (createForm.currentState!.validate()) {
-                                  Navigator.pushNamed(
-                                      context, AppRouter.workType);
-                                } else {
-                                  null;
-                                }
-                                AppCubit.get(context).password.clear();
-                              }),
+                          BlocBuilder<AuthCubit, AuthState>(
+                            builder: (context, state) {
+                              AuthCubit authCubit = AuthCubit.get(context);
+                              AppCubit appCubit = AppCubit.get(context);
+
+                              return defaultButton(
+                                  text: "Create account",
+                                  onPressed: () async {
+                                    if (createForm.currentState!.validate()) {
+                                      await authCubit.register(
+                                        name: appCubit.name.text,
+                                        email: appCubit.email.text,
+                                        password: appCubit.password.text,
+                                      );
+                                      if (state is RegSuccess) {
+                                        CacheHelper.putString(
+                                          key: SharedKeys.email,
+                                          value: appCubit.email.text,
+                                        );
+                                        CacheHelper.putString(
+                                          key: SharedKeys.password,
+                                          value: appCubit.password.text,
+                                        );
+                                        CacheHelper.putString(
+                                          key: SharedKeys.name,
+                                          value: appCubit.name.text,
+                                        );
+                                        Navigator.pushNamed(
+                                            context, AppRouter.workType);
+                                        appCubit.password.clear();
+                                      }
+                                    } else if (state is RegFailure) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
+                                        content: Text("error"),
+                                        backgroundColor: Colors.red,
+                                        showCloseIcon: true,
+                                        duration: Duration(seconds: 10),
+                                      ));
+                                    }
+                                  });
+                            },
+                          ),
                           const SizedBox(
                             height: 15,
                           ),
